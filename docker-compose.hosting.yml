@@ -1,0 +1,30 @@
+version: "3"
+networks:
+  nocobase:
+    driver: bridge
+services:
+  nocobase:
+    image: node:16-stretch-slim
+    networks:
+      - nocobase
+    command: [ "yarn", "start" ]
+    working_dir: /app
+    env_file: ./.env
+    volumes:
+      - ./:/app
+    expose:
+      - ${APP_PORT}
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:10
+    restart: always
+    command: postgres -c wal_level=logical
+    environment:
+      POSTGRES_USER: nocobase
+      POSTGRES_DB: nocobase
+      POSTGRES_PASSWORD: nocobase
+    networks:
+      - nocobase
