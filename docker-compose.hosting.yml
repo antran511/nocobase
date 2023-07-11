@@ -23,8 +23,8 @@ services:
     restart: always
     command: postgres -c wal_level=logical
     environment:
-      POSTGRES_USER: nocobase
-      POSTGRES_DB: nocobase
-      POSTGRES_PASSWORD: nocobase
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     networks:
       - nocobase
