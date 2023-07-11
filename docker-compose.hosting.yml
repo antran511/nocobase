@@ -22,6 +22,8 @@ services:
     image: postgres:10
     restart: always
     command: postgres -c wal_level=logical
+    ports:
+      - 5432:5432
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_DB: ${DB_DATABASE}
